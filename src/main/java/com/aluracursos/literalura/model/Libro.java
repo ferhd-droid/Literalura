@@ -2,12 +2,14 @@ package com.aluracursos.literalura.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Libro {
@@ -16,10 +18,9 @@ public class Libro {
   private Long id;
   @Column(unique = true)
   private String titulo;
-  @Transient
-  private List<DatosAutor> autores;
-  @Transient
-  private List<String> idiomas;
+  @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private List<Autor> autores;
+  private String idiomas;
   private Integer numDescargas;
 
   public Libro() {}   // Constructor predeterminado requerido por JPA
@@ -27,7 +28,7 @@ public class Libro {
   public Libro(DatosLibro datosLibro) {
     this.titulo = datosLibro.titulo();
     this.autores = datosLibro.autores();
-    this.idiomas = datosLibro.idiomas();
+    this.idiomas = String.join(",",datosLibro.idiomas());
     this.numDescargas = datosLibro.numDescargas();
   }
 
@@ -47,19 +48,20 @@ public class Libro {
     this.titulo = titulo;
   }
 
-  public List<DatosAutor> getAutores() {
+  public List<Autor> getAutores() {
     return autores;
   }
 
-  public void setAutores(List<DatosAutor> autores) {
+  public void setAutores(List<Autor> autores) {
+    autores.forEach(a -> a.setLibro(this));
     this.autores = autores;
   }
 
-  public List<String> getIdiomas() {
+  public String getIdiomas() {
     return idiomas;
   }
 
-  public void setIdiomas(List<String> idiomas) {
+  public void setIdiomas(String idiomas) {
     this.idiomas = idiomas;
   }
 
