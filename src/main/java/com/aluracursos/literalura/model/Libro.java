@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Libro {
@@ -15,7 +16,9 @@ public class Libro {
   private Long id;
   @Column(unique = true)
   private String titulo;
+  @Transient
   private List<DatosAutor> autores;
+  @Transient
   private List<String> idiomas;
   private Integer numDescargas;
 

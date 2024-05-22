@@ -1,14 +1,12 @@
 package com.aluracursos.literalura.principal;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 import com.aluracursos.literalura.model.Datos;
 import com.aluracursos.literalura.model.DatosLibro;
 import com.aluracursos.literalura.model.Libro;
-// import com.aluracursos.literalura.repository.ILibroRepository;
+import com.aluracursos.literalura.repository.LibroRepository;
 import com.aluracursos.literalura.service.ConsumoAPI;
 import com.aluracursos.literalura.service.ConvierteDatos;
 
@@ -18,11 +16,11 @@ public class Principal {
   private ConsumoAPI consumoAPI = new ConsumoAPI();
   private ConvierteDatos conversor = new ConvierteDatos();
   // private List<DatosLibro> datosLibro = new ArrayList<>();
-  // private ILibroRepository repository;
+  private LibroRepository repository;
 
-  // public Principal(ILibroRepository repository) {
-  //   this.repository = repository;
-  // }
+  public Principal(LibroRepository repository) {
+    this.repository = repository;
+  }
 
   public void muestraMenu() {
     var opcion = -1;
@@ -79,8 +77,8 @@ public class Principal {
                                   )
                           .findFirst();
     if(libroBuscado.isPresent()) {
-      // Libro libro = new Libro(libroBuscado.get());
-      // repository.save(libro);
+      Libro libro = new Libro(libroBuscado.get());
+      repository.save(libro);
       System.out.println("Libro encontrado ");
       System.out.println(libroBuscado.get());
     } else {
