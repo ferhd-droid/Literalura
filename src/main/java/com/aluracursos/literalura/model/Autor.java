@@ -60,6 +60,16 @@ public class Autor {
   public void setFechaDef(String fechaDef) {
     this.fechaDef = fechaDef;
   }
+
+  @Override
+  public String toString() {
+    return  "\n" + 
+            "Autor: " + nombre + ",\n" + 
+            "Fecha de nacimiento: " + fechaNac + ",\n" + 
+            "Fecha de fallecimiento: " + fechaDef + ",\n" +
+            "Libros: " + libro.getTitulo() +
+            "\n";
+  }
   
   // public String getName() {
   //   return name;
@@ -79,5 +89,4 @@ public class Autor {
   // public void setDeath_year(Integer death_year) {
   //   this.death_year = death_year;
   // }
-  
 }
