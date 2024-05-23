@@ -78,6 +78,7 @@ public class Principal {
                           .findFirst();
     if(libroBuscado.isPresent()) {
       Libro libro = new Libro(libroBuscado.get());
+      libro.setAutores(libroBuscado.get().autores());
       repository.save(libro);
       System.out.println("Libro encontrado ");
       System.out.println(libroBuscado.get());
