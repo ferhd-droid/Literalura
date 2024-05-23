@@ -86,11 +86,16 @@ public class Principal {
     if(libroBuscado.isPresent()) {
       Libro libro = new Libro(libroBuscado.get());
       libro.setAutores(libroBuscado.get().autores());
-      repository.save(libro);
-      System.out.println("Libro encontrado ");
-      System.out.println(libro);
+      var libroEnBD = repository.findByTitulo(libro.getTitulo());
+      if (libroEnBD != null) {
+        System.out.println("Este libro ya está registrado\n");
+      } else {
+        repository.save(libro);
+        System.out.println("Libro encontrado\n");
+        System.out.println(libro);
+      }
     } else {
-      System.out.println("Libro no encontrado");
+      System.out.println("Libro no encontrado\n");
     }
 
   }

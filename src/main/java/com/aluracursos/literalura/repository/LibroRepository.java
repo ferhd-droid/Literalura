@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface LibroRepository extends JpaRepository<Libro, Long> {
   List<Libro> findByIdiomasContaining(String idioma);
+  Libro findByTitulo(String titulo);
 }
